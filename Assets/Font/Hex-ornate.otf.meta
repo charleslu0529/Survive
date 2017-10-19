@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 2d108ca60ee64984486865b39acb31cf
+timeCreated: 1502915657
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Hex
+  fontNames:
+  - Hex
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 1ea2b62a028851f4d8ef3d58eafd98f1, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
