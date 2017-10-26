@@ -63,7 +63,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!60 &60896165957808596
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -176,6 +176,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 0.5
   HealthPoints: 2
+  DamageDealt: 1
+  ViewRadius: 6
+  BounceBackRecoveryTimer: 2
+  DefaultMovementtimer: 0.5
+  DefaultMovementRange: 2
 --- !u!212 &212599002218942432
 SpriteRenderer:
   m_ObjectHideFlags: 1

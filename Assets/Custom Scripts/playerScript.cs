@@ -10,8 +10,6 @@ public class playerScript : MonoBehaviour {
 	public float BulletSpeed = 2f;
 	public float HealthPoint = 10f;
 	public GameObject HPBar;
-	
-	//public float MovementSpeed = 5f;
 	public float KnockBack = 15f;
 	protected Vector3 mousePos;
 	protected Vector3 screenPos;
@@ -23,6 +21,8 @@ public class playerScript : MonoBehaviour {
 	AudioSource PickupSound;
 	AudioSource HitSound;
 	Vector3 playerPositionTemp;
+
+
 	// Use this for initialization
 	void Start () {
 		positionDifference = PointingArrow.transform.position - transform.position;
@@ -40,20 +40,8 @@ public class playerScript : MonoBehaviour {
 		screenPos = MainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position);
 		angleToRotate = Mathf.Atan2((mousePos - screenPos).y,(mousePos - screenPos).x) * Mathf.Rad2Deg -90f;
 
-		
-		if(transform.position.x < -15.6f){
-			transform.position = new Vector3(-15.6f, transform.position.y,0);
-		}
-		if(transform.position.x > 15.6f){
-			transform.position = new Vector3(15.6f, transform.position.y,0);
-		}
-		if(transform.position.y < -8.5f){
-			transform.position = new Vector3(transform.position.x, -8.5f,0);
-		}
-		if(transform.position.y > 9f){
-			transform.position = new Vector3(transform.position.x, 9f,0);
-		}
 
+		// at end game
 		if(!GameManager.instance.getIsEnd()){
 			transform.rotation = Quaternion.AngleAxis(angleToRotate, Vector3.forward);
 
