@@ -8,7 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 	public GameObject Player;
-	public GameObject Enemy;
+	public GameObject SpawnPoint;
+	public Camera MainCamera;
 	public Text ScoreText;
 	public Text InstructionText;
 	public Text CenterText;
@@ -21,9 +22,13 @@ public class GameManager : MonoBehaviour {
 
 	public float timer = 5f;
 	protected int currentScore = 0;
+	float shakeAmount;
 	float tempTime;
+	float screenShakeTime;
 	AudioSource playerShrinkSound;
 	AudioSource enemyShrinkSound;
+
+
 
 	void Awake()
 	{
@@ -57,7 +62,7 @@ public class GameManager : MonoBehaviour {
 			timer -= Time.deltaTime;
 			if(timer < 0){
 				int randomPattern = Random.Range(0, 5);
-				SpawnEnemy(randomPattern);
+				SpawnSpawnPoint(randomPattern);
 				InstructionText.text = "";
 				timer = tempTime;
 			}
@@ -69,6 +74,15 @@ public class GameManager : MonoBehaviour {
 			SceneManager.LoadScene("Menu Scene");
 		}
 
+		if(screenShakeTime > 0f)
+		{
+			if(Player != null){
+				MainCamera.transform.position = MainCamera.transform.position + Random.insideUnitSphere * shakeAmount;
+			}
+		}
+
+		screenShakeTime -= Time.deltaTime;
+
 		if(isEnd){
 			CenterText.text = "ReStArTiNg In :  " + Mathf.Round(endGameTimer).ToString();
 			endGameTimer -= Time.deltaTime;
@@ -78,63 +92,63 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	void SpawnEnemy(int pattern){
+	void SpawnSpawnPoint(int pattern){
 		float randomNumber = Random.Range(-1f, 1f); 
 		switch (pattern){
 			case 1:
 
-				Instantiate(Enemy, new Vector3(13, 0, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(13, 5, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(12, -2, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(10, 0, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(1, -9, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(-5, 5, 0), Quaternion.identity);
-				// Instantiate(Enemy, new Vector3(-9, 8, 0), Quaternion.identity);
-				// Instantiate(Enemy, new Vector3(-3, -2, 0), Quaternion.identity);
-				// Instantiate(Enemy, new Vector3(-6, 9, 0), Quaternion.identity);
-				// Instantiate(Enemy, new Vector3(-13, 7, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(13, 0, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(13, 5, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(12, -2, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(10, 0, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(1, -9, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-5, 5, 0), Quaternion.identity);
+				// Instantiate(SpawnPoint, new Vector3(-9, 8, 0), Quaternion.identity);
+				// Instantiate(SpawnPoint, new Vector3(-3, -2, 0), Quaternion.identity);
+				// Instantiate(SpawnPoint, new Vector3(-6, 9, 0), Quaternion.identity);
+				// Instantiate(SpawnPoint, new Vector3(-13, 7, 0), Quaternion.identity);
 				
 				break;
 			case 2:
-				Instantiate(Enemy, new Vector3(10, 5, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(11, 1, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(0, -2, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(1, -8, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(3, -9, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(-5, 7, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(7, 8, 0), Quaternion.identity);
-				// Instantiate(Enemy, new Vector3(-3, -2, 0), Quaternion.identity);
-				// Instantiate(Enemy, new Vector3(-2, 9, 0), Quaternion.identity);
-				// Instantiate(Enemy, new Vector3(-12, -7, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(10, 5, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(11, 1, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(0, -2, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(1, -8, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(3, -9, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-5, 7, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(7, 8, 0), Quaternion.identity);
+				// Instantiate(SpawnPoint, new Vector3(-3, -2, 0), Quaternion.identity);
+				// Instantiate(SpawnPoint, new Vector3(-2, 9, 0), Quaternion.identity);
+				// Instantiate(SpawnPoint, new Vector3(-12, -7, 0), Quaternion.identity);
 				break;
 			case 3:
-				Instantiate(Enemy, new Vector3(0, 0, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(6, -1, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(12, -2, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(13, 8, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(1, -9, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(-5, -2, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(-13, 0, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(-3, -2, 0), Quaternion.identity);
-				// Instantiate(Enemy, new Vector3(-5, 0, 0), Quaternion.identity);
-				// Instantiate(Enemy, new Vector3(-11, 7, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(0, 0, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(6, -1, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(12, -2, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(13, 8, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(1, -9, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-5, -2, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-13, 0, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-3, -2, 0), Quaternion.identity);
+				// Instantiate(SpawnPoint, new Vector3(-5, 0, 0), Quaternion.identity);
+				// Instantiate(SpawnPoint, new Vector3(-11, 7, 0), Quaternion.identity);
 				break;
 			case 4:
-				Instantiate(Enemy, new Vector3(7, 0, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(0, 5, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(12, -2, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(4, 0, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(1, -9, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(-5, 5, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(-4, 8, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(-3, -2, 0), Quaternion.identity);
-				Instantiate(Enemy, new Vector3(-6, 9, 0), Quaternion.identity);
-				// Instantiate(Enemy, new Vector3(-13, 7, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(7, 0, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(0, 5, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(12, -2, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(4, 0, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(1, -9, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-5, 5, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-4, 8, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-3, -2, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-6, 9, 0), Quaternion.identity);
+				// Instantiate(SpawnPoint, new Vector3(-13, 7, 0), Quaternion.identity);
 				break;
 			default:
 				
 				for(int i=0;i< 10;i++){
-					Instantiate(Enemy, new Vector3(Random.Range(-13f, 13f), Random.Range(-9f, 9f), 0), Quaternion.identity);
+					Instantiate(SpawnPoint, new Vector3(Random.Range(-13f, 13f), Random.Range(-9f, 9f), 0), Quaternion.identity);
 				}
 				break;
 		}
@@ -170,5 +184,10 @@ public class GameManager : MonoBehaviour {
 	}
 	public void playEnemyShrinkSound(){
 		enemyShrinkSound.Play();
+	}
+
+	public void ScreenShake(float shrinktime, float intensity){
+		screenShakeTime = shrinktime;
+		shakeAmount = intensity;
 	}
 }

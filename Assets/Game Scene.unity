@@ -200,10 +200,18 @@ MonoBehaviour:
   PointingArrow: {fileID: 2046203942}
   MainCamera: {fileID: 1691733967}
   Bullet: {fileID: 1964451237010362, guid: ac75ecf99e6b5df488523b9a6952c27c, type: 2}
+  HPBar: {fileID: 537205293}
+  CastLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  KnockBack: 40
   BulletSpeed: 6
   HealthPoint: 10
-  HPBar: {fileID: 537205293}
-  KnockBack: 40
+  CastLength: 0.5
+  MovementSpeed: 5
+  MovementLerpTime: 0.21
+  ScreenShakeTime: 0.1
+  ScreenShakeIntensity: 0.1
 --- !u!50 &39121937
 Rigidbody2D:
   serializedVersion: 4
@@ -605,19 +613,19 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6202b94e9b2f11743aa4922d57910a40, type: 3}
-    m_FontSize: 30
+    m_Font: {fileID: 12800000, guid: 51bd246f08f559f49998d877bab0e36f, type: 3}
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
-    m_MaxSize: 40
-    m_Alignment: 2
+    m_MaxSize: 58
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 0
 --- !u!222 &257047685
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -751,7 +759,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 39121933}
-  Enemy: {fileID: 1048743655044558, guid: 23979677b804d440197cd1a51859e952, type: 2}
+  SpawnPoint: {fileID: 1011056300786876, guid: bde297c11c7aef141a8b823a76fe33f5, type: 2}
+  MainCamera: {fileID: 1691733967}
   ScoreText: {fileID: 257047684}
   InstructionText: {fileID: 1773325458}
   CenterText: {fileID: 964709610}
@@ -765,7 +774,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 388067472}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.54119104, y: 0.36836746, z: -0.84277344}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1324,7 +1333,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 1691733967}
-  m_PlaneDistance: 10
+  m_PlaneDistance: 5
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -1576,7 +1585,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6202b94e9b2f11743aa4922d57910a40, type: 3}
+    m_Font: {fileID: 12800000, guid: 51bd246f08f559f49998d877bab0e36f, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
@@ -1718,7 +1727,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 7bb0b62664f786246b8b4cdb6e64ca22, type: 3}
+    m_Font: {fileID: 12800000, guid: 9de3674d5f0bab44f8f8c5c2145f15f4, type: 3}
     m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0
@@ -1730,7 +1739,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ', H , P'
+  m_Text: HP
 --- !u!222 &1147179911
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1821,7 +1830,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1432685108}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2730414ceb773f24db7575dc1eca1a43, type: 3}
@@ -1964,19 +1973,19 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6202b94e9b2f11743aa4922d57910a40, type: 3}
+    m_Font: {fileID: 12800000, guid: 9de3674d5f0bab44f8f8c5c2145f15f4, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'S c o r e : '
+  m_Text: 'S c o r e :'
 --- !u!222 &1547547097
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2081,7 +2090,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1691733963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf9be8bfe4539814092de26e1f8ac650, type: 3}
+  m_Script: {fileID: 11500000, guid: c5ba2a69ef932bc4da2e757bb9ba9759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 39121933}
@@ -2151,8 +2160,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 280.4, y: -4.3741007}
-  m_SizeDelta: {x: 239.4, y: 441.35}
+  m_AnchoredPosition: {x: 218.7, y: -4.3741007}
+  m_SizeDelta: {x: 362.8, y: 441.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1773325458
 MonoBehaviour:
@@ -2174,7 +2183,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 7bb0b62664f786246b8b4cdb6e64ca22, type: 3}
+    m_Font: {fileID: 12800000, guid: 87517e6ceef6aa34ea4d7d670fc0d60f, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -2186,12 +2195,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Move ;    W S A D
+  m_Text: 'Move: WSAD
 
-    Shoot ;    Mouse Click
+    Shoot: Mouse Click
 
 
-    Exit ;    "Esc"'
+    Exit: Esc'
 --- !u!222 &1773325459
 CanvasRenderer:
   m_ObjectHideFlags: 0

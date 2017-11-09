@@ -17,6 +17,8 @@ public class playerScript : MonoBehaviour {
 	public float CastLength = 0.5f;
 	public float MovementSpeed = 5f;
 	public float MovementLerpTime = 1f;
+	public float ScreenShakeTime = 0.2f;
+	public float ScreenShakeIntensity = 0.2f;
 	Vector3 mousePos;
 	Vector3 screenPos;
 	Vector3 positionDifference;
@@ -109,6 +111,9 @@ If not the end of a game
 		if (!GameManager.instance.getIsEnd()) {
 			transform.rotation = Quaternion.AngleAxis(angleToRotate, Vector3.forward);
 
+		/******************************
+		shoot on mouse left click
+		******************************/
 			if (transform.localScale.x > 0.15f) {
 
 				if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space")) {
@@ -116,8 +121,11 @@ If not the end of a game
 					newBullet.GetComponent<Rigidbody2D>().velocity = transform.up * BulletSpeed;
 					transform.localScale = new Vector3( (transform.localScale.x - 0.05f), (transform.localScale.y - 0.05f), 1f);
 					MovementSpeed += 0.5f;
+					GameManager.instance.ScreenShake(ScreenShakeTime, ScreenShakeIntensity);
 				}
 			}
+		/******************************
+		******************************/
 			if (HealthPoint <= 0) {
 				transform.localScale -= new Vector3(0.05f, 0.05f, 0.05f);
 			}
