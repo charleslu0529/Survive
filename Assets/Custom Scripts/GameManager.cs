@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void SpawnSpawnPoint(int pattern){
-		float randomNumber = Random.Range(-1f, 1f); 
+		// float randomNumber = Random.Range(-1f, 1f); 
 		switch (pattern){
 			case 1:
 
@@ -145,6 +145,42 @@ public class GameManager : MonoBehaviour {
 				Instantiate(SpawnPoint, new Vector3(-6, 9, 0), Quaternion.identity);
 				// Instantiate(SpawnPoint, new Vector3(-13, 7, 0), Quaternion.identity);
 				break;
+			/*case 5:
+				Instantiate(SpawnPoint, new Vector3(7, 0, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(0, 5, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(12, -2, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(4, 0, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(1, -9, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-5, 5, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-4, 8, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-3, -2, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-6, 9, 0), Quaternion.identity);
+				// Instantiate(SpawnPoint, new Vector3(-13, 7, 0), Quaternion.identity);
+				break;
+			case 6:
+				Instantiate(SpawnPoint, new Vector3(7, 0, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(0, 5, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(12, -2, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(4, 0, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(1, -9, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-5, 5, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-4, 8, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-3, -2, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-6, 9, 0), Quaternion.identity);
+				// Instantiate(SpawnPoint, new Vector3(-13, 7, 0), Quaternion.identity);
+				break;
+			case 7:
+				Instantiate(SpawnPoint, new Vector3(7, 0, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(0, 5, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(12, -2, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(4, 0, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(1, -9, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-5, 5, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-4, 8, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-3, -2, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-6, 9, 0), Quaternion.identity);
+				// Instantiate(SpawnPoint, new Vector3(-13, 7, 0), Quaternion.identity);
+				break;*/
 			default:
 				
 				for(int i=0;i< 10;i++){

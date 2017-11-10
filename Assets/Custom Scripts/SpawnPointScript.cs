@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class SpawnPointScript : MonoBehaviour {
 
-
+	public GameObject ExtinguishParticleEffect;
 	public GameObject Enemy;
 	public float SpawnTimer = 3f;
 	public float ColourIntervalDivision = 10f;
 	public Color AlertColour = Color.red;
+	public Color ExtinguishColour = Color.grey;
+	public int Score = 2;
 	float localSpawnTimer;
 	Color originalColour;
 	float redColourChangeInterval;
@@ -49,6 +51,25 @@ public class SpawnPointScript : MonoBehaviour {
 		{
 			Instantiate(Enemy, transform.position, Quaternion.identity);
 			Destroy(gameObject);
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D col2D){
+		if(col2D.gameObject.tag == "Player")
+		{
+			for (int i=0; i<Score; i++) 
+			{
+				GameManager.instance.incScore();
+			}
+			Instantiate(ExtinguishParticleEffect, transform.position, Quaternion.identity);
+			Destroy(gameObject);
+		}
+	}
+
+	void OnTriggerStay2D(Collider2D col2D){
+		if(col2D.gameObject.tag == "Player")
+		{
+			gameObject.GetComponent<SpriteRenderer>().color = ExtinguishColour;
 		}
 	}
 }
