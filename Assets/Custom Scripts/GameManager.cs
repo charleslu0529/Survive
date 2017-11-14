@@ -9,22 +9,29 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 	public GameObject Player;
 	public GameObject SpawnPoint;
+	public GameObject HPBar;
 	public Camera MainCamera;
 	public Text ScoreText;
 	public Text InstructionText;
 	public Text CenterText;
+	public Text HighScoreText;
 	public static GameManager instance = null;
 	public bool isEnd;
 	public float endGameTimer = 5f;
+	public float HPLerpTime = 0.5f;
 	/*public Texture2D cursorTexture;
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;*/
-
 	public float timer = 5f;
+	public int TotalEnemyOnField = 200;
 	protected int currentScore = 0;
+	public static int HighScore;
 	float shakeAmount;
 	float tempTime;
 	float screenShakeTime;
+	float maxHPWidth;
+	float playerMaxHealth;
+	float hpBarMaxPosX;
 	AudioSource playerShrinkSound;
 	AudioSource enemyShrinkSound;
 
@@ -44,9 +51,13 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		isEnd = false;
 		tempTime = timer;
+		maxHPWidth = HPBar.GetComponent<RectTransform>().sizeDelta.x;
+		hpBarMaxPosX = HPBar.GetComponent<RectTransform>().anchoredPosition.x;
 		AudioSource[] audios = GetComponents<AudioSource>();
 		playerShrinkSound = audios[0];
 		enemyShrinkSound = audios[1];
+
+		HighScoreText.text = "High Score: " + HighScore.ToString();
 
 		//Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 
@@ -58,11 +69,18 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
 		if(!isEnd){
 			timer -= Time.deltaTime;
 			if(timer < 0){
 				int randomPattern = Random.Range(0, 5);
-				SpawnSpawnPoint(randomPattern);
+
+				if( enemies.Length < TotalEnemyOnField)
+				{
+					SpawnSpawnPoint(randomPattern);
+				}
+				
 				InstructionText.text = "";
 				timer = tempTime;
 			}
@@ -84,6 +102,10 @@ public class GameManager : MonoBehaviour {
 		screenShakeTime -= Time.deltaTime;
 
 		if(isEnd){
+			if(currentScore > HighScore)
+			{
+				HighScore = currentScore;
+			}
 			CenterText.text = "ReStArTiNg In :  " + Mathf.Round(endGameTimer).ToString();
 			endGameTimer -= Time.deltaTime;
 			if(endGameTimer < 0){
@@ -97,12 +119,12 @@ public class GameManager : MonoBehaviour {
 		switch (pattern){
 			case 1:
 
-				Instantiate(SpawnPoint, new Vector3(13, 0, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(13, 5, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(12, -2, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(10, 0, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(1, -9, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(-5, 5, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(13, 0, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(13, 5, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(12, -2, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(10, 0, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(1, -9, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-5, 5, 0.25f), Quaternion.identity);
 				// Instantiate(SpawnPoint, new Vector3(-9, 8, 0), Quaternion.identity);
 				// Instantiate(SpawnPoint, new Vector3(-3, -2, 0), Quaternion.identity);
 				// Instantiate(SpawnPoint, new Vector3(-6, 9, 0), Quaternion.identity);
@@ -110,39 +132,39 @@ public class GameManager : MonoBehaviour {
 				
 				break;
 			case 2:
-				Instantiate(SpawnPoint, new Vector3(10, 5, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(11, 1, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(0, -2, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(1, -8, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(3, -9, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(-5, 7, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(7, 8, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(10, 5, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(11, 1, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(0, -2, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(1, -8, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(3, -9, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-5, 7, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(7, 8, 0.25f), Quaternion.identity);
 				// Instantiate(SpawnPoint, new Vector3(-3, -2, 0), Quaternion.identity);
 				// Instantiate(SpawnPoint, new Vector3(-2, 9, 0), Quaternion.identity);
 				// Instantiate(SpawnPoint, new Vector3(-12, -7, 0), Quaternion.identity);
 				break;
 			case 3:
-				Instantiate(SpawnPoint, new Vector3(0, 0, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(6, -1, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(12, -2, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(13, 8, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(1, -9, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(-5, -2, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(-13, 0, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(-3, -2, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(0, 0, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(6, -1, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(12, -2, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(13, 8, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(1, -9, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-5, -2, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-13, 0, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-3, -2, 0.25f), Quaternion.identity);
 				// Instantiate(SpawnPoint, new Vector3(-5, 0, 0), Quaternion.identity);
 				// Instantiate(SpawnPoint, new Vector3(-11, 7, 0), Quaternion.identity);
 				break;
 			case 4:
-				Instantiate(SpawnPoint, new Vector3(7, 0, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(0, 5, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(12, -2, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(4, 0, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(1, -9, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(-5, 5, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(-4, 8, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(-3, -2, 0), Quaternion.identity);
-				Instantiate(SpawnPoint, new Vector3(-6, 9, 0), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(7, 0, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(0, 5, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(12, -2, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(4, 0, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(1, -9, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-5, 5, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-4, 8, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-3, -2, 0.25f), Quaternion.identity);
+				Instantiate(SpawnPoint, new Vector3(-6, 9, 0.25f), Quaternion.identity);
 				// Instantiate(SpawnPoint, new Vector3(-13, 7, 0), Quaternion.identity);
 				break;
 			/*case 5:
@@ -225,5 +247,16 @@ public class GameManager : MonoBehaviour {
 	public void ScreenShake(float shrinktime, float intensity){
 		screenShakeTime = shrinktime;
 		shakeAmount = intensity;
+	}
+
+	public void setMaxHP(float maxHP){
+		playerMaxHealth = maxHP;
+	}
+
+	public void UpdateHP(float newHP){
+		Vector2 newSizeDelta = new Vector2( maxHPWidth * (newHP/playerMaxHealth), HPBar.GetComponent<RectTransform>().sizeDelta.y );
+		HPBar.GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(HPBar.GetComponent<RectTransform>().sizeDelta, newSizeDelta, HPLerpTime);
+		Vector2 newAnchoredPosition = new Vector2( hpBarMaxPosX * (newHP/playerMaxHealth), HPBar.GetComponent<RectTransform>().localPosition.y);
+		HPBar.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(HPBar.GetComponent<RectTransform>().anchoredPosition, newAnchoredPosition, HPLerpTime);
 	}
 }

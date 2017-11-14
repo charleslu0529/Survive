@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 
 public class EnemyScript : MonoBehaviour {
+	public GameObject PointText;
 	public float MovementSpeed = 0.5f;
 	public float HealthPoints = 2f;
 	public float DamageDealt = 1f;
@@ -12,6 +13,8 @@ public class EnemyScript : MonoBehaviour {
 	public float BounceBackRecoveryTimer = 0.5f;
 	public float DefaultMovementtimer = 0.5f;
 	public float DefaultMovementRange = 2f;
+	public float RightBoundary = 10f;
+	public float TopBoundary = 7f;
 	protected Vector3 destination;
 	bool isAfterPlayer = true;
 	bool hasHitPlayer = false;
@@ -87,12 +90,12 @@ public class EnemyScript : MonoBehaviour {
 
 					destination = transform.position + new Vector3(randomNumber,randomNumber,0);
 
-					if(destination.x > 13f || destination.x < -13f)
+					if(destination.x > RightBoundary || destination.x < (-1 * RightBoundary))
 					{
 						destination = new Vector3(destination.x * (-1f), destination.y,0);
 					}
 
-					if(destination.y > 9f || destination.y < -9f)
+					if(destination.y > TopBoundary || destination.y < (-1 * TopBoundary) )
 					{
 						destination = new Vector3(destination.x, destination.y * (-1f),0);
 					}
@@ -113,6 +116,7 @@ public class EnemyScript : MonoBehaviour {
 		{
 			GameManager.instance.incScore();
 			GameManager.instance.playEnemyShrinkSound();
+			Instantiate(PointText, transform.position, Quaternion.identity);
 			Destroy(gameObject);
 		}
 
@@ -134,5 +138,10 @@ public class EnemyScript : MonoBehaviour {
 		{
 			hasHitPlayer = true;
 		}
+
+		// if(col2D.gameObject.tag == "Enemy")
+		// {
+		// 	rb.velocity = new Vector2(destination.x * -1f, destination.y * -1f).normalized * MovementSpeed;
+		// }
 	}
 }

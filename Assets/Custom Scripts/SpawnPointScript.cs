@@ -6,6 +6,7 @@ public class SpawnPointScript : MonoBehaviour {
 
 	public GameObject ExtinguishParticleEffect;
 	public GameObject Enemy;
+	public GameObject PointText;
 	public float SpawnTimer = 3f;
 	public float ColourIntervalDivision = 10f;
 	public Color AlertColour = Color.red;
@@ -62,6 +63,7 @@ public class SpawnPointScript : MonoBehaviour {
 				GameManager.instance.incScore();
 			}
 			Instantiate(ExtinguishParticleEffect, transform.position, Quaternion.identity);
+			Instantiate(PointText, transform.position, Quaternion.identity);
 			Destroy(gameObject);
 		}
 	}
@@ -70,6 +72,7 @@ public class SpawnPointScript : MonoBehaviour {
 		if(col2D.gameObject.tag == "Player")
 		{
 			gameObject.GetComponent<SpriteRenderer>().color = ExtinguishColour;
+			localSpawnTimer += Time.deltaTime;
 		}
 	}
 }

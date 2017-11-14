@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1048743655044558}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9929352, y: -4.1593056, z: 0}
+  m_LocalPosition: {x: -10.241563, y: -1.7806637, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51a4554ec9b88a4fa2cc5fdeaa81c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PointText: {fileID: 1403862326647388, guid: 0fe6e97c94965c941b63c63194b4a464, type: 2}
   MovementSpeed: 0.5
   HealthPoints: 2
   DamageDealt: 1
@@ -195,6 +196,8 @@ MonoBehaviour:
   BounceBackRecoveryTimer: 2
   DefaultMovementtimer: 0.5
   DefaultMovementRange: 2
+  RightBoundary: 10
+  TopBoundary: 8
 --- !u!212 &212599002218942432
 SpriteRenderer:
   m_ObjectHideFlags: 1

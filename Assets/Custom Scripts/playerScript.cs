@@ -9,7 +9,6 @@ public class playerScript : MonoBehaviour {
 	public GameObject PointingArrow;
 	public Camera MainCamera;
 	public GameObject Bullet;
-	public GameObject HPBar;
 	public LayerMask CastLayer;
 	public float KnockBack = 15f;
 	public float BulletSpeed = 2f;
@@ -23,8 +22,6 @@ public class playerScript : MonoBehaviour {
 	Vector3 screenPos;
 	Vector3 positionDifference;
 	float angleToRotate;
-	float maxHPWidth;
-	float maxHealth;
 	Vector3 newPlayerYPos;
 	AudioSource PickupSound;
 	AudioSource HitSound;
@@ -39,13 +36,12 @@ public class playerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		positionDifference = PointingArrow.transform.position - transform.position;
-		maxHPWidth = HPBar.GetComponent<RectTransform>().sizeDelta.x;
-		maxHealth = HealthPoint;
 		AudioSource[] audios = GetComponents<AudioSource>();
 		PickupSound = audios[0];
 		HitSound = audios[1];
 		rb = GetComponent<Rigidbody2D>();
 		rb.velocity = Vector3.zero;
+		GameManager.instance.setMaxHP(HealthPoint);
 	}
 
 	// Update is called once per frame
@@ -154,8 +150,8 @@ If not the end of a game
 			HealthPoint -= 1f;
 			HitSound.Play();
 			GetComponent<Rigidbody2D>().AddRelativeForce((transform.position - col2D.gameObject.transform.position) * (-1f) * KnockBack);
-			HPBar.GetComponent<RectTransform>().sizeDelta = new Vector2(maxHPWidth * (HealthPoint / maxHealth), HPBar.GetComponent<RectTransform>().sizeDelta.y);
-			HPBar.GetComponent<RectTransform>().localPosition = new Vector3(-(maxHPWidth - HPBar.GetComponent<RectTransform>().sizeDelta.x) / 2, 0, 0);
+
+			GameManager.instance.UpdateHP(HealthPoint);
 		}
 	}
 }
