@@ -64,6 +64,7 @@ public class SpawnPointScript : MonoBehaviour {
 			}
 			Instantiate(ExtinguishParticleEffect, transform.position, Quaternion.identity);
 			Instantiate(PointText, transform.position, Quaternion.identity);
+			GameManager.instance.playExtinguishSound();
 			Destroy(gameObject);
 		}
 	}

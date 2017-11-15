@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour {
 	float hpBarMaxPosX;
 	AudioSource playerShrinkSound;
 	AudioSource enemyShrinkSound;
+	AudioSource extinguishSound;
+	AudioSource hitSound;
 
 
 
@@ -56,6 +58,8 @@ public class GameManager : MonoBehaviour {
 		AudioSource[] audios = GetComponents<AudioSource>();
 		playerShrinkSound = audios[0];
 		enemyShrinkSound = audios[1];
+		extinguishSound = audios[2];
+		hitSound = audios[3];
 
 		HighScoreText.text = "High Score: " + HighScore.ToString();
 
@@ -242,6 +246,14 @@ public class GameManager : MonoBehaviour {
 	}
 	public void playEnemyShrinkSound(){
 		enemyShrinkSound.Play();
+	}
+
+	public void playExtinguishSound(){
+		extinguishSound.Play();
+	}
+
+	public void playHitSound(){
+		hitSound.Play();
 	}
 
 	public void ScreenShake(float shrinktime, float intensity){

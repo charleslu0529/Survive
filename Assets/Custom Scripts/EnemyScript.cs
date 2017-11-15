@@ -132,6 +132,7 @@ public class EnemyScript : MonoBehaviour {
 		if(col2D.gameObject.tag == "Bullet")
 		{
 			HealthPoints -= DamageDealt;
+			GameManager.instance.playHitSound();
 		}
 
 		if(col2D.gameObject.tag == "Player")
