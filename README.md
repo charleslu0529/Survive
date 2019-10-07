@@ -1,6 +1,6 @@
 # Survive
 
-2D Top Down Shooter game.
+2D Top Down Shooter game prototype.
 
 Player is a ball that shoots itself out to defeat enemies. As the player gets smaller the player can ove faster.
 Player has to re-collect balls for ammunition.
